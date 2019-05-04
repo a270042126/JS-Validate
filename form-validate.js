@@ -36,7 +36,7 @@ class FormValidate {
   static handleRules (value, ruleArr) {
     for (let key in ruleArr) {
       let rule = ruleArr[key]
-      if (rule.hasOwnProperty('require') && !String(value).trim()) {
+      if (rule.hasOwnProperty('require') && rule['require'] && !String(value).trim()) {
         return rule.message
       } else if (rule.hasOwnProperty('min') && String(value).trim().length < Number(rule['min'])) {
         return rule.message
