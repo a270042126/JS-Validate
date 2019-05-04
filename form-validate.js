@@ -19,7 +19,12 @@ class FormValidate {
   static handleRecursive (verifiesData, rules, resultArr) {
     for (let key in rules) {
       const ruleObj = rules[key]
-      const data = verifiesData[key]
+      let data
+      try {
+        data = verifiesData[key]
+      } catch (e) {
+        break
+      }
       const result = this.handleRules(data, ruleObj)
       if (result) {
         const item = {
@@ -38,11 +43,11 @@ class FormValidate {
       let rule = ruleArr[key]
       if (rule.hasOwnProperty('require') && rule['require'] && !String(value).trim()) {
         return rule.message
-      } else if (rule.hasOwnProperty('min') && String(value).trim().length < Number(rule['min'])) {
+      } else if (rule.hasOwnProperty('min') && value && String(value).trim().length < Number(rule['min'])) {
         return rule.message
-      } else if (rule.hasOwnProperty('max') && String(value).trim().length > Number(rule['max'])) {
+      } else if (rule.hasOwnProperty('max') && value && String(value).trim().length > Number(rule['max'])) {
         return rule.message
-      } else if (rule.hasOwnProperty('rule') && !rule['rule'].test(value)) {
+      } else if (rule.hasOwnProperty('rule') && value && !rule['rule'].test(value)) {
         return rule.message
       }
     }
