@@ -43,12 +43,14 @@ class FormValidate {
       let rule = ruleArr[key]
       if (rule.hasOwnProperty('require') && rule['require'] && !String(value).trim()) {
         return rule.message
-      } else if (rule.hasOwnProperty('min') && value && String(value).trim().length < Number(rule['min'])) {
-        return rule.message
-      } else if (rule.hasOwnProperty('max') && value && String(value).trim().length > Number(rule['max'])) {
-        return rule.message
-      } else if (rule.hasOwnProperty('rule') && value && !rule['rule'].test(value)) {
-        return rule.message
+      } else if (value) {
+        if (rule.hasOwnProperty('min') && String(value).trim().length < Number(rule['min'])) {
+          return rule.message
+        } else if (rule.hasOwnProperty('max') && String(value).trim().length > Number(rule['max'])) {
+          return rule.message
+        } else if (rule.hasOwnProperty('rule') && !rule['rule'].test(value)) {
+          return rule.message
+        }
       }
     }
   }
