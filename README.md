@@ -1,7 +1,7 @@
 # JS-Validate
 Vue JS Validate
 
-### Compiles and hot-reloads for development
+### use
 ```
 const user = {
   name: '',
